@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zorlain.github.io/pension-lotto-generator/sitemap.xml
