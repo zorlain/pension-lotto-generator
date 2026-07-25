@@ -654,8 +654,17 @@ function renderDigitHeatmap(containerId, digitFreqArray) {
       const cell = document.createElement("div");
       cell.className = "digit-heatmap-cell";
       if (count === max) cell.classList.add("hot");
-      cell.textContent = digit;
-      cell.title = `${digit}: ${count}회`;
+
+      const digitEl = document.createElement("span");
+      digitEl.className = "digit-heatmap-cell-digit";
+      digitEl.textContent = digit;
+
+      const countEl = document.createElement("span");
+      countEl.className = "digit-heatmap-cell-count";
+      countEl.textContent = `${count}회`;
+
+      cell.appendChild(digitEl);
+      cell.appendChild(countEl);
       cells.appendChild(cell);
     });
 

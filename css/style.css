@@ -501,20 +501,35 @@ header.hero p {
 
 .digit-heatmap-cell {
   flex: 1;
-  aspect-ratio: 1;
+  min-width: 0;
   border-radius: 7px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
+  gap: 2px;
+  padding: 7px 2px;
   color: var(--text-muted);
   background: var(--card-elevated);
+}
+
+.digit-heatmap-cell-digit {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.digit-heatmap-cell-count {
+  font-size: 9px;
+  font-weight: 600;
+  opacity: 0.75;
 }
 
 .digit-heatmap-cell.hot {
   background: var(--chart-fill);
   color: var(--accent-on);
+}
+
+.digit-heatmap-cell.hot .digit-heatmap-cell-digit {
   font-weight: 800;
 }
 
@@ -1330,8 +1345,11 @@ footer {
   .digit-heatmap-cells {
     flex-basis: 100%;
   }
-  .digit-heatmap-cell {
+  .digit-heatmap-cell-digit {
     font-size: 14px;
+  }
+  .digit-heatmap-cell-count {
+    font-size: 10px;
   }
 
   /* 맞춤 설정 (탭2) */
@@ -1429,8 +1447,11 @@ footer {
   .digit-heatmap-label {
     font-size: 12.5px;
   }
-  .digit-heatmap-cell {
+  .digit-heatmap-cell-digit {
     font-size: 12px;
+  }
+  .digit-heatmap-cell-count {
+    font-size: 9px;
   }
   .freq-chart {
     height: 110px;
