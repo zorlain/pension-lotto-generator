@@ -401,9 +401,9 @@ header.hero p {
 }
 
 .digit-tile {
-  width: 36px;
+  width: 40px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 50%;
   border: 2px solid transparent;
   display: flex;
   align-items: center;
@@ -1203,7 +1203,7 @@ footer {
     font-size: 12px;
   }
   .digit-tile {
-    width: 30px;
+    width: 34px;
     height: 34px;
     font-size: 15px;
   }
@@ -1419,7 +1419,7 @@ footer {
     font-size: 11px;
   }
   .digit-tile {
-    width: 26px;
+    width: 30px;
     height: 30px;
     font-size: 13px;
   }
