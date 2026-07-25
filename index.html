@@ -212,19 +212,21 @@
           <div class="option-title-row">
             <label class="switch-row">
               <input type="checkbox" id="opt-digitfreq-enabled" />
-              <span class="option-title">🔥 자릿수별 출현 빈도 가중치</span>
+              <span class="option-title">🔥 자릿수별 누적 출현 빈도 가중치</span>
             </label>
             <button type="button" class="info-btn" aria-label="자세히 보기">
               <span aria-hidden="true">ⓘ</span>
               <span class="info-tooltip">
-                각 자리(1~6번째)마다 지금까지 자주 나왔던 숫자(HOT)나 반대로 드물게 나왔던
-                숫자(COLD)를 우대합니다. 실제 추첨은 완전 무작위라서, 이 설정이 실제 당첨
-                확률을 높여주지는 않습니다.
+                각 자리(1~6번째)마다 <b>전체 회차 동안 총 몇 번 나왔는지</b>를 기준으로,
+                누적 횟수가 많은 숫자(HOT)나 적은 숫자(COLD)를 우대합니다. 최근에 나왔는지는
+                따지지 않습니다 — 방금 전 회차에 나왔어도 누적 횟수가 적으면 COLD로 분류됩니다.
+                (참고: "미출현 기간 가중치"는 최근 안 나온 숫자를 보는 것으로, 이것과 다릅니다.)
+                실제 추첨은 완전 무작위라서, 이 설정이 실제 당첨 확률을 높여주지는 않습니다.
               </span>
             </button>
           </div>
         </div>
-        <p class="card-desc-short">자리마다 자주/드물게 나온 숫자에 가중치를 둡니다.</p>
+        <p class="card-desc-short">자리마다 누적 횟수가 많은/적은 숫자에 가중치를 둡니다.</p>
         <div class="radio-row">
           <label><input type="radio" name="opt-digitfreq-direction" value="hot" /> 자주 나온 숫자(HOT) 우대</label>
           <label><input type="radio" name="opt-digitfreq-direction" value="cold" /> 드물게 나온 숫자(COLD) 우대</label>
@@ -236,20 +238,23 @@
           <div class="option-title-row">
             <label class="switch-row">
               <input type="checkbox" id="opt-gapdigit-enabled" />
-              <span class="option-title">⏳ 자릿수별 미출현 기간 가중치</span>
+              <span class="option-title">⏳ 자릿수별 최근 미출현 가중치</span>
             </label>
             <button type="button" class="info-btn" aria-label="자세히 보기">
               <span aria-hidden="true">ⓘ</span>
               <span class="info-tooltip">
-                각 자리(1~6번째)마다, 마지막으로 나온 지 오래된 숫자를 우대합니다. 예를 들어
-                15회로 설정하면, 최근 15회차 동안 해당 자리에 한 번도 안 나온 숫자들이
-                <b>이 생성기에서 골라질 확률</b>이 더 높아집니다. 다만 추첨은 매 회차 완전히
-                독립적이라, 오래 안 나왔다고 실제로 나올 확률이 높아지는 것은 아닙니다.
+                각 자리(1~6번째)마다 <b>마지막으로 나온 뒤 몇 회차가 지났는지</b>를 기준으로,
+                최근 한동안 안 나온 숫자를 우대합니다. 예를 들어 15회로 설정하면, 최근 15회차
+                동안 해당 자리에 한 번도 안 나온 숫자들이 <b>이 생성기에서 골라질 확률</b>이
+                더 높아집니다. 누적 횟수는 상관없습니다 — 전체적으론 많이 나온 숫자여도 최근에
+                한동안 안 나왔다면 우대 대상이 됩니다. (참고: "누적 출현 빈도 가중치"의 COLD와는
+                다릅니다.) 다만 추첨은 매 회차 완전히 독립적이라, 오래 안 나왔다고 실제로 나올
+                확률이 높아지는 것은 아닙니다.
               </span>
             </button>
           </div>
         </div>
-        <p class="card-desc-short">자리마다 오래 안 나온 숫자에 가중치를 둡니다.</p>
+        <p class="card-desc-short">자리마다 최근 한동안 안 나온 숫자에 가중치를 둡니다.</p>
         <div class="field-row">
           <span class="field-label">최근</span>
           <input type="number" id="opt-gapdigit-threshold" min="1" max="150" />

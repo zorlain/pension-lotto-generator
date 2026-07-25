@@ -434,7 +434,7 @@ function initConfigPanel(stats, config, onChange) {
     });
   });
 
-  // 자릿수별 출현 빈도 가중치
+  // 자릿수별 누적 출현 빈도 가중치
   const digitFreqEnabled = document.getElementById("opt-digitfreq-enabled");
   const digitFreqRadios = document.querySelectorAll('input[name="opt-digitfreq-direction"]');
 
@@ -465,7 +465,7 @@ function initConfigPanel(stats, config, onChange) {
     });
   });
 
-  // 자릿수별 미출현 기간 가중치
+  // 자릿수별 최근 미출현 가중치
   const gapDigitEnabled = document.getElementById("opt-gapdigit-enabled");
   const gapDigitThreshold = document.getElementById("opt-gapdigit-threshold");
 
