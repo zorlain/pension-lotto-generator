@@ -1260,6 +1260,25 @@ footer {
     height: 18px;
   }
 
+  /* 자릿수별 숫자 분포 히트맵 — 라벨을 위 줄로 올리고 숫자칸은 카드 전체 너비를 쓰게 한다 */
+  .digit-heatmap-row {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    margin-bottom: 14px;
+  }
+  .digit-heatmap-label {
+    width: 100%;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .digit-heatmap-cells {
+    flex-basis: 100%;
+  }
+  .digit-heatmap-cell {
+    font-size: 14px;
+  }
+
   /* 맞춤 설정 (탭2) */
   .section-heading {
     margin: 4px 2px 12px;
@@ -1353,7 +1372,9 @@ footer {
     gap: 6px;
   }
   .digit-heatmap-label {
-    width: 60px;
+    font-size: 12.5px;
+  }
+  .digit-heatmap-cell {
     font-size: 12px;
   }
   .freq-chart {
