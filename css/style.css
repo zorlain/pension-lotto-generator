@@ -1,4 +1,4 @@
-/* 회색 계열(무채색) 다크 팔레트. */
+/* 골드(금색) 계열 다크 팔레트 — 로또 6/45(무채색 사이트)와 한눈에 구분되도록 색을 다르게 잡았다. */
 :root {
   --bg: #000000;
   --card: #2b2b2b;
@@ -6,15 +6,15 @@
   --text: #eaeaea;
   --text-muted: #a0a0a0;
   --border: #404040;
-  --accent: #d2d2d2;
-  --accent-hover: #e8e8e8;
-  --accent-soft: rgba(255, 255, 255, 0.1);
-  --accent-on: #181818;
-  --hot-mark: #f2f2f2;
-  --cold-mark: #717171;
+  --accent: #e8b53d;
+  --accent-hover: #f5c65a;
+  --accent-soft: rgba(232, 181, 61, 0.14);
+  --accent-on: #201400;
+  --hot-mark: #ffd166;
+  --cold-mark: #6b5a35;
   /* 넓은 면적을 차지하는 차트 막대 전용 색. --accent보다 어둡게 잡아서,
      OLED 화면의 자동 밝기 제한(ABL)으로 큰 면적이 실제보다 칙칙하게 보이는 걸 줄인다. */
-  --chart-fill: #999999;
+  --chart-fill: #b8862f;
   --bonus: #c58af9;
 }
 
@@ -1166,15 +1166,10 @@ footer {
     line-height: 1.5;
   }
 
-  /* 번호별 출현 빈도 차트 — 45칸은 어쩔 수 없이 촘촘하지만 세로 여유는 준다 */
+  /* 조별 출현 빈도 차트 — 5칸이라 좁은 화면에서도 라벨을 그대로 보여준다 */
   .freq-chart {
-    grid-template-columns: repeat(45, minmax(0, 1fr));
-    height: 140px;
-    padding-top: 4px;
-  }
-  .freq-num,
-  .freq-count {
-    display: none;
+    height: 150px;
+    padding-top: 20px;
   }
   .freq-legend {
     font-size: 12.5px;
