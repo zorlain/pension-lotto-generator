@@ -12,8 +12,10 @@ function computeStats(data) {
   const bonusDigitFreq = Array.from({ length: DIGIT_POSITIONS }, () => new Array(10).fill(0));
   const sumCounts = new Array(55).fill(0); // 자릿수 합계 0~54
   const oddCountDist = new Array(7).fill(0); // 홀수 자릿수 개수 0~6
+  const duplicateDigitDist = new Array(6).fill(0); // 한 회차 안에서 중복되는 자릿수 개수 0~5
+  const prevDrawRepeatDist = new Array(7).fill(0); // 직전 회차와 같은 자리에서 일치하는 개수 0~6
 
-  data.forEach((d) => {
+  data.forEach((d, idx) => {
     groupFreq[d.group]++;
 
     const digits = digitsOf(d.num);
@@ -26,6 +28,18 @@ function computeStats(data) {
     });
     sumCounts[sum]++;
     oddCountDist[oddCount]++;
+
+    const uniqueDigitCount = new Set(digits).size;
+    duplicateDigitDist[6 - uniqueDigitCount]++;
+
+    if (idx > 0) {
+      const prevDigits = digitsOf(data[idx - 1].num);
+      let matched = 0;
+      for (let pos = 0; pos < DIGIT_POSITIONS; pos++) {
+        if (digits[pos] === prevDigits[pos]) matched++;
+      }
+      prevDrawRepeatDist[matched]++;
+    }
 
     digitsOf(d.bonus).forEach((digit, pos) => bonusDigitFreq[pos][digit]++);
   });
@@ -69,6 +83,8 @@ function computeStats(data) {
     bonusDigitFreq,
     sumBins,
     oddCountDist,
+    duplicateDigitDist,
+    prevDrawRepeatDist,
     recentWindow,
     recentGroupRanking,
   };

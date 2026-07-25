@@ -330,6 +330,38 @@
 
     <div class="card">
       <h2>
+        🔢 자릿수 중복 개수 분포
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">
+            로또와 달리 연금복권 6자리 숫자는 같은 숫자가 여러 자리에 겹칠 수 있습니다.
+            예를 들어 162132는 1과 2가 각각 두 번씩 나와 중복 2개입니다. 한 회차 안에서
+            숫자가 몇 개나 겹쳤는지 전 회차를 집계한 분포입니다.
+          </span>
+        </button>
+      </h2>
+      <p class="card-desc-short">한 회차 안에서 숫자가 몇 개 겹쳤는지 보여줍니다.</p>
+      <div id="duplicate-digit-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>
+        🔁 직전 회차와 자릿수 일치 통계
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">
+            바로 전 회차의 6자리 숫자와 이번 회차가 같은 자리에서 몇 개나 일치했는지
+            전 회차를 집계한 분포입니다. "맞춤 설정"의 "직전 회차와 자릿수 일치 제한"
+            필터가 이 데이터를 기반으로 동작합니다.
+          </span>
+        </button>
+      </h2>
+      <p class="card-desc-short">직전 회차와 같은 자리에서 몇 개나 겹쳤는지 보여줍니다.</p>
+      <div id="prevrepeat-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>
         🎾 보너스 번호 자릿수 분포
         <button type="button" class="info-btn" aria-label="자세히 보기">
           <span aria-hidden="true">ⓘ</span>

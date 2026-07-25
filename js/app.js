@@ -623,6 +623,14 @@ function renderOddDigitChart(stats) {
   renderHBarDist("odd-digit-chart", stats.oddCountDist, (i) => `홀${i}개`);
 }
 
+function renderDuplicateDigitChart(stats) {
+  renderHBarDist("duplicate-digit-chart", stats.duplicateDigitDist, (i) => (i === 0 ? "전부 다름" : `중복 ${i}개`));
+}
+
+function renderPrevRepeatChart(stats) {
+  renderHBarDist("prevrepeat-chart", stats.prevDrawRepeatDist, (i) => `${i}자리 일치`);
+}
+
 function renderTrendComparison(stats) {
   document.getElementById("trend-desc").textContent =
     `최근 ${stats.recentWindow}회와 전체 ${stats.totalDraws.toLocaleString()}회 기준 조 출현 순위를 비교합니다.`;
@@ -651,6 +659,8 @@ function init() {
   renderDigitHeatmap("bonus-digit-heatmap", stats.bonusDigitFreq);
   renderSumChart(stats);
   renderOddDigitChart(stats);
+  renderDuplicateDigitChart(stats);
+  renderPrevRepeatChart(stats);
   renderTrendComparison(stats);
 
   const onConfigChange = () => {
