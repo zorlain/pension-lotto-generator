@@ -1,21 +1,21 @@
-/* 브론즈/골드 계열 다크 팔레트 — 배경 자체를 로또 6/45(무채색 사이트)와 다른 톤으로 잡아서
+/* 네이비 블루 계열 다크 팔레트 — 배경 자체를 로또 6/45(무채색 사이트)와 다른 톤으로 잡아서
    버튼 색만이 아니라 전체 화면 분위기부터 다른 사이트임을 알 수 있게 했다. */
 :root {
-  --bg: #0c0904;
-  --card: #241c10;
-  --card-elevated: #362915;
-  --text: #f0e6d2;
-  --text-muted: #b3a488;
-  --border: #4a3c22;
-  --accent: #e8b53d;
-  --accent-hover: #f5c65a;
-  --accent-soft: rgba(232, 181, 61, 0.16);
-  --accent-on: #201400;
-  --hot-mark: #ffd166;
-  --cold-mark: #7a6540;
+  --bg: #05070d;
+  --card: #101827;
+  --card-elevated: #1b2740;
+  --text: #e2e8f5;
+  --text-muted: #8b97b3;
+  --border: #2a3b5c;
+  --accent: #4d8dff;
+  --accent-hover: #6ba3ff;
+  --accent-soft: rgba(77, 141, 255, 0.16);
+  --accent-on: #031126;
+  --hot-mark: #a8c8ff;
+  --cold-mark: #4a5b7a;
   /* 넓은 면적을 차지하는 차트 막대 전용 색. --accent보다 어둡게 잡아서,
      OLED 화면의 자동 밝기 제한(ABL)으로 큰 면적이 실제보다 칙칙하게 보이는 걸 줄인다. */
-  --chart-fill: #b8862f;
+  --chart-fill: #2f5fa8;
   --bonus: #c58af9;
 }
 
