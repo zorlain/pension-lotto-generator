@@ -109,7 +109,7 @@ function renderSetsInto(containerId, sets) {
     const balls = document.createElement("div");
     balls.className = "set-balls";
     balls.appendChild(makeGroupBadge(set.group));
-    set.num.split("").forEach((d) => balls.appendChild(makeDigitTile(d)));
+    set.num.split("").forEach((d, pos) => balls.appendChild(makeDigitTile(d, `pos-${pos}`)));
     row.appendChild(balls);
 
     const actions = document.createElement("div");

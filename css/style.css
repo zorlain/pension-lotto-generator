@@ -16,6 +16,15 @@
      OLED 화면의 자동 밝기 제한(ABL)으로 큰 면적이 실제보다 칙칙하게 보이는 걸 줄인다. */
   --chart-fill: #999999;
   --bonus: #c58af9;
+
+  /* 동행복권 공식 사이트(dhlottery.co.kr)의 연금복권720+ 결과 화면에서
+     1~6번째 자리마다 실제로 쓰는 색과 동일하게 맞춘 자릿수별 색상 */
+  --pos1: #de4c0e;
+  --pos2: #f08200;
+  --pos3: #f3c00f;
+  --pos4: #2a9bdb;
+  --pos5: #a87ad7;
+  --pos6: #adb0ba;
 }
 
 * {
@@ -395,6 +404,7 @@ header.hero p {
   width: 36px;
   height: 40px;
   border-radius: 8px;
+  border: 2px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -403,11 +413,20 @@ header.hero p {
   color: var(--text);
   background: var(--card-elevated);
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .digit-tile.bonus-tile {
   color: var(--bonus);
 }
+
+/* 자리(1~6번째)별 색상 — 동행복권 공식 사이트와 동일 */
+.digit-tile.pos-0 { border-color: var(--pos1); color: var(--pos1); }
+.digit-tile.pos-1 { border-color: var(--pos2); color: var(--pos2); }
+.digit-tile.pos-2 { border-color: var(--pos3); color: var(--pos3); }
+.digit-tile.pos-3 { border-color: var(--pos4); color: var(--pos4); }
+.digit-tile.pos-4 { border-color: var(--pos5); color: var(--pos5); }
+.digit-tile.pos-5 { border-color: var(--pos6); color: var(--pos6); }
 
 /* 조별 출현 빈도 차트 */
 .freq-chart {
