@@ -6,7 +6,8 @@ const WEIGHT_BOOST = 3; // 우대 대상 숫자에 곱해주는 가중치 배수
 const TOTAL_ATTEMPT_BUDGET = 20000;
 
 // 자리(0~5)별 숫자(0~9) 가중치를 계산한다. 기본은 전부 동일(1)이고,
-// "자릿수별 출현 빈도 가중치"가 켜져 있으면 자리마다 HOT/COLD 상위 3개 숫자에 가중치를 준다.
+// "자릿수별 출현 빈도 가중치"가 켜져 있으면 자리마다 HOT/COLD 상위 3개 숫자에,
+// "자릿수별 미출현 기간 가중치"가 켜져 있으면 자리마다 오래 안 나온 숫자에 가중치를 준다.
 function computeDigitWeights(stats, config) {
   const weights = Array.from({ length: DIGIT_POSITIONS }, () => new Array(10).fill(1));
 
@@ -20,7 +21,21 @@ function computeDigitWeights(stats, config) {
     }
   }
 
+  if (config.gapDigit.enabled) {
+    for (let pos = 0; pos < DIGIT_POSITIONS; pos++) {
+      for (let digit = 0; digit <= 9; digit++) {
+        if (stats.digitGapNow[pos][digit] >= config.gapDigit.threshold) {
+          weights[pos][digit] *= WEIGHT_BOOST;
+        }
+      }
+    }
+  }
+
   return weights;
+}
+
+function uniqueDigitCountOf(digits) {
+  return new Set(digits).size;
 }
 
 function weightedDigit(digitWeights) {
@@ -66,6 +81,9 @@ function generateSets(stats, config, count) {
     ? { min: config.oddDigit.manualMin, max: config.oddDigit.manualMax }
     : null;
   const maxOverlap = config.prevRepeat.enabled ? config.prevRepeat.maxOverlap : null;
+  const duplicateRange = config.duplicateDigit.enabled
+    ? { min: config.duplicateDigit.manualMin, max: config.duplicateDigit.manualMax }
+    : null;
   const prevDigits = digitsOf(stats.lastDraw.num);
   const forcedPositions = config.includeDigits.enabled ? config.includeDigits.positions : null;
 
@@ -89,6 +107,11 @@ function generateSets(stats, config, count) {
     if (oddRange && (odd < oddRange.min || odd > oddRange.max)) continue;
 
     if (maxOverlap !== null && overlapWithPrev(digits, prevDigits) > maxOverlap) continue;
+
+    if (duplicateRange) {
+      const duplicates = DIGIT_POSITIONS - uniqueDigitCountOf(digits);
+      if (duplicates < duplicateRange.min || duplicates > duplicateRange.max) continue;
+    }
 
     seen.add(numStr);
     results.push({ group: pickGroup(config, results.length), num: numStr, sum, odd });

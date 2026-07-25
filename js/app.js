@@ -203,6 +203,10 @@ function renderActiveConfigSummary(config) {
   if (config.digitFreq.enabled) {
     active.push(`자리별 ${config.digitFreq.direction === "hot" ? "HOT" : "COLD"} 숫자 우대`);
   }
+  if (config.gapDigit.enabled) active.push(`${config.gapDigit.threshold}회+ 미출현 숫자 우대`);
+  if (config.duplicateDigit.enabled) {
+    active.push(`중복 ${config.duplicateDigit.manualMin}~${config.duplicateDigit.manualMax}개`);
+  }
   if (config.oddDigit.enabled) {
     active.push(`홀수 ${config.oddDigit.manualMin}~${config.oddDigit.manualMax}개`);
   }
@@ -459,6 +463,66 @@ function initConfigPanel(stats, config, onChange) {
         onChange();
       }
     });
+  });
+
+  // 자릿수별 미출현 기간 가중치
+  const gapDigitEnabled = document.getElementById("opt-gapdigit-enabled");
+  const gapDigitThreshold = document.getElementById("opt-gapdigit-threshold");
+
+  const syncGapDigit = () => {
+    gapDigitThreshold.disabled = !config.gapDigit.enabled;
+  };
+  const resyncGapDigit = () => {
+    gapDigitEnabled.checked = config.gapDigit.enabled;
+    gapDigitThreshold.value = config.gapDigit.threshold;
+    syncGapDigit();
+  };
+  resyncGapDigit();
+  resyncFns.push(resyncGapDigit);
+
+  gapDigitEnabled.addEventListener("change", () => {
+    config.gapDigit.enabled = gapDigitEnabled.checked;
+    syncGapDigit();
+    onChange();
+  });
+  gapDigitThreshold.addEventListener("input", () => {
+    config.gapDigit.threshold = Math.max(1, Number(gapDigitThreshold.value) || 1);
+    onChange();
+  });
+
+  // 자릿수 중복 개수 제한
+  const duplicateEnabled = document.getElementById("opt-duplicatedigit-enabled");
+  const duplicateManualWrap = document.getElementById("opt-duplicatedigit-manual-wrap");
+
+  const renderDuplicateSlider = bindDualSlider({
+    minEl: document.getElementById("opt-duplicatedigit-min"),
+    maxEl: document.getElementById("opt-duplicatedigit-max"),
+    fillEl: document.getElementById("opt-duplicatedigit-fill"),
+    labelEl: document.getElementById("opt-duplicatedigit-labels"),
+    format: (a, b) => (a === b ? `중복 ${a}개` : `중복 ${a}~${b}개`),
+    getRange: () => ({ min: config.duplicateDigit.manualMin, max: config.duplicateDigit.manualMax }),
+    setRange: (a, b) => {
+      config.duplicateDigit.manualMin = a;
+      config.duplicateDigit.manualMax = b;
+    },
+    onChange,
+  });
+
+  const syncDuplicate = () => {
+    duplicateManualWrap.classList.toggle("disabled-field", !config.duplicateDigit.enabled);
+  };
+  const resyncDuplicate = () => {
+    duplicateEnabled.checked = config.duplicateDigit.enabled;
+    renderDuplicateSlider();
+    syncDuplicate();
+  };
+  resyncDuplicate();
+  resyncFns.push(resyncDuplicate);
+
+  duplicateEnabled.addEventListener("change", () => {
+    config.duplicateDigit.enabled = duplicateEnabled.checked;
+    syncDuplicate();
+    onChange();
   });
 
   // 홀수 자릿수 개수

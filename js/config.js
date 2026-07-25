@@ -11,9 +11,12 @@ function defaultConfig() {
     sumRange: { enabled: true, manualMin: 15, manualMax: 35 },
     // positions[i]: i번째 자리(0~5)에 고정할 숫자(0~9). null이면 자동.
     includeDigits: { enabled: false, positions: [null, null, null, null, null, null] },
+    oddDigit: { enabled: false, manualMin: 2, manualMax: 4 },
     // 아래는 전부 "심화 설정" — 초기값은 모두 꺼짐(체크 해제) 상태로 시작한다.
     digitFreq: { enabled: false, direction: "hot" },
-    oddDigit: { enabled: false, manualMin: 2, manualMax: 4 },
+    gapDigit: { enabled: false, threshold: 15 },
+    // 6자리 중 같은 숫자가 몇 개까지 겹쳐도 되는지(0~5).
+    duplicateDigit: { enabled: false, manualMin: 0, manualMax: 3 },
     prevRepeat: { enabled: false, maxOverlap: 2 },
   };
 }

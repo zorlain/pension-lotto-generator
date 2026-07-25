@@ -53,6 +53,20 @@ function computeStats(data) {
     sumBins.push({ min: start, max: end, count });
   }
 
+  // digitGapNow[pos][digit]: 그 자리에 그 숫자가 마지막으로 나온 뒤 몇 회차가 지났는지(0이면 바로 최근 회차).
+  // 한 번도 안 나온 숫자는 total로 취급한다.
+  const digitGapNow = Array.from({ length: DIGIT_POSITIONS }, () => new Array(10).fill(total));
+  const lastSeenIndex = Array.from({ length: DIGIT_POSITIONS }, () => new Array(10).fill(-1));
+  data.forEach((d, idx) => {
+    digitsOf(d.num).forEach((digit, pos) => { lastSeenIndex[pos][digit] = idx; });
+  });
+  for (let pos = 0; pos < DIGIT_POSITIONS; pos++) {
+    for (let digit = 0; digit <= 9; digit++) {
+      const seenAt = lastSeenIndex[pos][digit];
+      if (seenAt !== -1) digitGapNow[pos][digit] = total - 1 - seenAt;
+    }
+  }
+
   const hotDigitPerPosition = digitFreq.map((freqs) => {
     let maxIdx = 0;
     freqs.forEach((c, i) => { if (c > freqs[maxIdx]) maxIdx = i; });
@@ -80,6 +94,7 @@ function computeStats(data) {
     groupRanking,
     digitFreq,
     hotDigitPerPosition,
+    digitGapNow,
     bonusDigitFreq,
     sumBins,
     oddCountDist,
