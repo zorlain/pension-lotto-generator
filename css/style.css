@@ -1,22 +1,23 @@
-/* 버건디 와인 계열 다크 팔레트 — 배경 자체를 로또 6/45(무채색 사이트)와 다른 톤으로 잡아서
+/* 딥 퍼플 계열 다크 팔레트 — 배경 자체를 로또 6/45(무채색 사이트)와 다른 톤으로 잡아서
    버튼 색만이 아니라 전체 화면 분위기부터 다른 사이트임을 알 수 있게 했다. */
 :root {
-  --bg: #0d0507;
-  --card: #241017;
-  --card-elevated: #361a22;
-  --text: #f2e2e6;
-  --text-muted: #b38a95;
-  --border: #4a2230;
-  --accent: #e0577a;
-  --accent-hover: #ea7793;
-  --accent-soft: rgba(224, 87, 122, 0.16);
-  --accent-on: #2b0812;
-  --hot-mark: #ff9db3;
-  --cold-mark: #6b3c48;
+  --bg: #0a0714;
+  --card: #1c1530;
+  --card-elevated: #2a2045;
+  --text: #ece7f7;
+  --text-muted: #9a8fc2;
+  --border: #352a52;
+  --accent: #a78bfa;
+  --accent-hover: #bda3ff;
+  --accent-soft: rgba(167, 139, 250, 0.16);
+  --accent-on: #1c0f38;
+  --hot-mark: #d0c0ff;
+  --cold-mark: #574a7a;
   /* 넓은 면적을 차지하는 차트 막대 전용 색. --accent보다 어둡게 잡아서,
      OLED 화면의 자동 밝기 제한(ABL)으로 큰 면적이 실제보다 칙칙하게 보이는 걸 줄인다. */
-  --chart-fill: #a83f5c;
-  --bonus: #c58af9;
+  --chart-fill: #6b4fb0;
+  /* 메인 강조색이 보라라서, 보너스 번호 타일은 대비되는 금색을 쓴다. */
+  --bonus: #f0b429;
 }
 
 * {
