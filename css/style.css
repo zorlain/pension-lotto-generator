@@ -786,6 +786,14 @@ header.hero p {
   opacity: 0.4;
 }
 
+/* 조(組) 선택 - "줄마다 다르게 설정" 모드에서 A~E줄마다 조를 지정하는 그리드 */
+.group-row-picker {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
 /* 생성 결과가 부족할 때 보여주는 안내 문구 */
 .generate-warning {
   font-size: 13px;
@@ -1299,6 +1307,12 @@ footer {
 
   /* 원하는 숫자 포함 — 좁은 화면에서는 3열x2줄로 */
   .digit-position-picker {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  /* 조 선택 줄별 지정 — 좁은 화면에서는 3열로, 남는 2칸은 다음 줄로 */
+  .group-row-picker {
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }

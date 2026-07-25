@@ -187,8 +187,11 @@ function initAdvancedToggle() {
 function renderActiveConfigSummary(config) {
   const active = [];
 
-  if (config.group.mode !== "auto") {
-    active.push(`${config.group.mode}조 고정`);
+  if (config.group.mode === "perRow") {
+    const specified = config.group.perRow.filter((v) => v !== "auto").length;
+    if (specified > 0) active.push(`조 지정(줄마다 다르게, ${specified}줄)`);
+  } else if (config.group.value !== "auto") {
+    active.push(`${config.group.value}조 고정`);
   }
   if (config.sumRange.enabled) {
     active.push(`합계 ${config.sumRange.manualMin}~${config.sumRange.manualMax}`);
@@ -252,17 +255,73 @@ function bindDualSlider({ minEl, maxEl, fillEl, labelEl, format, getRange, setRa
 function initConfigPanel(stats, config, onChange) {
   const resyncFns = [];
 
-  // 조 선택
-  const groupMode = document.getElementById("opt-group-mode");
+  // 조 선택 (공통 적용 / 줄마다 다르게 설정)
+  const groupModeRadios = document.querySelectorAll('input[name="opt-group-mode"]');
+  const groupCommonRow = document.getElementById("opt-group-common-row");
+  const groupCommonSelect = document.getElementById("opt-group-common-select");
+  const groupPerRowGrid = document.getElementById("opt-group-perrow-grid");
+  const groupPerRowSelects = [];
+
+  const groupOptionsHtml = () => {
+    let html = '<option value="auto">자동</option>';
+    for (let g = 1; g <= 5; g++) html += `<option value="${g}">${g}조</option>`;
+    return html;
+  };
+
+  SET_LABELS.forEach((label, i) => {
+    const field = document.createElement("div");
+    field.className = "digit-position-field";
+
+    const labelEl = document.createElement("label");
+    labelEl.textContent = `${label}줄`;
+
+    const select = document.createElement("select");
+    select.dataset.row = String(i);
+    select.innerHTML = groupOptionsHtml();
+
+    field.appendChild(labelEl);
+    field.appendChild(select);
+    groupPerRowGrid.appendChild(field);
+    groupPerRowSelects.push(select);
+  });
+
+  const syncGroup = () => {
+    const isPerRow = config.group.mode === "perRow";
+    groupCommonRow.hidden = isPerRow;
+    groupPerRowGrid.hidden = !isPerRow;
+  };
+
   const resyncGroup = () => {
-    groupMode.value = config.group.mode;
+    groupModeRadios.forEach((radio) => {
+      radio.checked = radio.value === config.group.mode;
+    });
+    groupCommonSelect.value = config.group.value;
+    groupPerRowSelects.forEach((select, i) => {
+      select.value = config.group.perRow[i];
+    });
+    syncGroup();
   };
   resyncGroup();
   resyncFns.push(resyncGroup);
 
-  groupMode.addEventListener("change", () => {
-    config.group.mode = groupMode.value;
+  groupModeRadios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      if (!radio.checked) return;
+      config.group.mode = radio.value;
+      syncGroup();
+      onChange();
+    });
+  });
+  groupCommonSelect.addEventListener("change", () => {
+    config.group.value = groupCommonSelect.value;
     onChange();
+  });
+  groupPerRowSelects.forEach((select) => {
+    select.addEventListener("change", () => {
+      const i = Number(select.dataset.row);
+      config.group.perRow[i] = select.value;
+      onChange();
+    });
   });
 
   // 자릿수 합계 구간

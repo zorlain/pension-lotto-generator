@@ -33,9 +33,12 @@ function weightedDigit(digitWeights) {
   return digitWeights.length - 1;
 }
 
-function pickGroup(config) {
-  if (config.group.mode !== "auto") return Number(config.group.mode);
-  return 1 + Math.floor(Math.random() * 5);
+// rowIndex(0~4)는 결과가 A~E 중 몇 번째 줄로 나올지를 뜻한다. "줄마다 다르게 설정" 모드에서
+// 줄별로 지정한 조를 그대로 반영하기 위해, 결과를 채우는 순서(results.length)를 그대로 넘겨 쓴다.
+function pickGroup(config, rowIndex) {
+  const spec = config.group.mode === "perRow" ? config.group.perRow[rowIndex] : config.group.value;
+  if (spec === "auto" || spec === undefined) return 1 + Math.floor(Math.random() * 5);
+  return Number(spec);
 }
 
 function sumOfDigits(digits) {
@@ -88,7 +91,7 @@ function generateSets(stats, config, count) {
     if (maxOverlap !== null && overlapWithPrev(digits, prevDigits) > maxOverlap) continue;
 
     seen.add(numStr);
-    results.push({ group: pickGroup(config), num: numStr, sum, odd });
+    results.push({ group: pickGroup(config, results.length), num: numStr, sum, odd });
   }
 
   return results;
