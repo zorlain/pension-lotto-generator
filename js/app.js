@@ -776,11 +776,30 @@ function renderTrendComparison(stats) {
   stats.recentGroupRanking.forEach((x) => recentList.appendChild(makeGroupMiniItem(x.group, `${x.count}회`)));
 }
 
+/* ---------- 검색결과 클릭률(SERP CTR) 개선용 최신 회차 반영 title/meta ---------- */
+function renderSeoMeta(stats) {
+  const no = stats.lastDraw.no;
+  const date = stats.lastDraw.date;
+
+  const title = `무료 연금복권 번호 생성기 - 연금복권720+ ${no}회 당첨결과 반영 통계 분석`;
+  const description =
+    `연금복권720+ ${no}회(${date}) 당첨번호까지 반영한 전 회차 데이터를 분석해 조·자릿수 통계 기반으로 번호를 추천합니다. ` +
+    `조 선택, 자릿수 합계, 자릿수별 출현빈도까지 직접 설정 가능. 회원가입 없이 무료로 이용하세요.`;
+
+  document.title = title;
+  document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+  document.querySelector('meta[property="og:title"]')?.setAttribute("content", title);
+  document.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+  document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", title);
+  document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", description);
+}
+
 /* ---------- 초기화 ---------- */
 function init() {
   const stats = computeStats(PENSION_DATA);
   const config = loadConfig();
 
+  renderSeoMeta(stats);
   initTabs();
   initAdvancedToggle();
   initInfoTooltips();
