@@ -1,6 +1,7 @@
-/* 레볼루트(Revolut) 다크 캔버스 디자인 언어 적용: 순수 블랙 캔버스 + 코발트 바이올렛
-   액센트(강조 텍스트/링 전용, 버튼 표면에는 쓰지 않음) + 흰색 알약 버튼이 시그니처 1차 CTA,
-   전 버튼/입력 필드 pill·라운드 통일, 카드/버튼 그림자 전면 배제. */
+/* 레볼루트(Revolut) 디자인 언어 적용: 코발트 바이올렛 액센트(강조 텍스트/링 전용, 버튼
+   표면에는 쓰지 않음) + 캔버스 반대색 알약 버튼이 시그니처 1차 CTA, 전 버튼/입력 필드
+   pill·라운드 통일, 카드/버튼 그림자 전면 배제. 다크가 기본값이며, data-theme="light"로
+   라이트 모드를 전환한다. */
 :root {
   --bg: #000000;
   --card: #16181a;
@@ -19,6 +20,7 @@
   --btn-primary-bg: #ffffff;
   --btn-primary-text: #000000;
   --btn-primary-pressed: #c9c9cd;
+  --hover-tint: rgba(255, 255, 255, 0.08);
 
   /* 동행복권 공식 사이트(dhlottery.co.kr)의 연금복권720+ 결과 화면에서
      1~6번째 자리마다 실제로 쓰는 색과 동일하게 맞춘 자릿수별 색상 */
@@ -28,6 +30,48 @@
   --pos4: #2a9bdb;
   --pos5: #a87ad7;
   --pos6: #adb0ba;
+}
+
+:root[data-theme="light"] {
+  --bg: #ffffff;
+  --card: #f7f7f8;
+  --card-elevated: #ececef;
+  --text: #0a0a0a;
+  --text-muted: rgba(10, 10, 10, 0.62);
+  --border: rgba(10, 10, 10, 0.12);
+  --accent-soft: rgba(73, 79, 223, 0.12);
+  --hot-mark: #494fdf;
+  --cold-mark: #9296a1;
+  --chart-fill: #494fdf;
+  --btn-primary-bg: #0a0a0a;
+  --btn-primary-text: #ffffff;
+  --btn-primary-pressed: #2e2e2e;
+  --hover-tint: rgba(10, 10, 10, 0.06);
+}
+
+/* 테마 토글 버튼 */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--text);
+  background: transparent;
+  color: var(--text);
+  font-size: 17px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.theme-toggle:hover {
+  background: var(--hover-tint);
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
 }
 
 * {
@@ -80,6 +124,8 @@ header.hero p {
 .hero-actions {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
   margin-top: 18px;
 }
 
@@ -100,7 +146,7 @@ header.hero p {
 }
 
 .site-switch-link:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--hover-tint);
 }
 
 .site-switch-link:active {
@@ -419,7 +465,7 @@ header.hero p {
   font-size: 17px;
   font-weight: 700;
   color: var(--text);
-  background: var(--card-elevated);
+  background: var(--bg);
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -1011,9 +1057,8 @@ header.hero p {
   position: absolute;
   top: 50%;
   height: 8px;
-  background: #ffffff;
+  background: var(--accent);
   border-radius: 4px;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
   transform: translateY(-50%);
 }
 
@@ -1041,9 +1086,9 @@ header.hero p {
   height: 22px;
   margin-top: 5px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--accent);
   border: 3px solid var(--card);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
 
@@ -1057,9 +1102,9 @@ header.hero p {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--accent);
   border: 3px solid var(--card);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
 
