@@ -807,6 +807,50 @@ function renderTrendComparison(stats) {
   stats.recentGroupRanking.forEach((x) => recentList.appendChild(makeGroupMiniItem(x.group, `${x.count}회`)));
 }
 
+function renderSumStdDev(stats) {
+  document.getElementById("sum-stddev-stat").textContent =
+    `평균 합계 ${stats.avgSum.toFixed(1)} · 표준편차 ${stats.sumStdDev.toFixed(1)} (숫자가 작을수록 합계가 평균 근처에 몰려있다는 뜻)`;
+}
+
+function renderPrimeMultipleCharts(stats) {
+  renderHBarDist("prime-digit-chart", stats.primeDigitCountDist, (i) => `소수 ${i}개`);
+  renderHBarDist("multiple3-digit-chart", stats.multiple3DigitDist, (i) => `${i}개`);
+  renderHBarDist("multiple5-digit-chart", stats.multiple5DigitDist, (i) => `${i}개`);
+}
+
+function renderStreakCharts(stats) {
+  document.getElementById("exact-repeat-stat").textContent = stats.hasExactRepeat
+    ? "전 회차 중 완전히 동일한 6자리 번호가 나온 적이 있습니다."
+    : "전 회차 중 완전히 동일한 6자리 번호가 나온 적은 없습니다.";
+
+  const ascendCounts = [stats.ascendStreakDist.none, stats.ascendStreakDist.two, stats.ascendStreakDist.threePlus];
+  renderHBarDist("ascend-streak-chart", ascendCounts, (i) => ["연속 없음", "2연속", "3연속 이상"][i]);
+
+  const repeatCounts = [stats.repeatStreakDist.none, stats.repeatStreakDist.two, stats.repeatStreakDist.threePlus];
+  renderHBarDist("repeat-streak-chart", repeatCounts, (i) => ["반복 없음", "2연속 반복", "3연속 이상 반복"][i]);
+}
+
+function renderReappearChart(stats) {
+  renderBinBarChart("reappear-chart", stats.gapHistogram);
+}
+
+function renderSeasonalGroupLists(stats) {
+  const container = document.getElementById("seasonal-group-lists");
+  container.innerHTML = "";
+
+  stats.seasonalGroupRanking.forEach((s) => {
+    const wrap = document.createElement("div");
+    const heading = document.createElement("h3");
+    heading.textContent = `${s.season} 조 순위`;
+    const list = document.createElement("div");
+    list.className = "top-list";
+    s.ranking.forEach((x) => list.appendChild(makeGroupMiniItem(x.group, `${x.count}회`)));
+    wrap.appendChild(heading);
+    wrap.appendChild(list);
+    container.appendChild(wrap);
+  });
+}
+
 /* ---------- 검색결과 클릭률(SERP CTR) 개선용 최신 회차 반영 title/meta ---------- */
 function renderSeoMeta(stats) {
   const no = stats.lastDraw.no;
@@ -842,10 +886,15 @@ function init() {
   renderDigitHeatmap("digit-heatmap", stats.digitFreq);
   renderDigitHeatmap("bonus-digit-heatmap", stats.bonusDigitFreq);
   renderSumChart(stats);
+  renderSumStdDev(stats);
+  renderPrimeMultipleCharts(stats);
   renderOddDigitChart(stats);
   renderDuplicateDigitChart(stats);
+  renderStreakCharts(stats);
   renderPrevRepeatChart(stats);
   renderTrendComparison(stats);
+  renderReappearChart(stats);
+  renderSeasonalGroupLists(stats);
 
   const onConfigChange = () => {
     saveConfig(config);

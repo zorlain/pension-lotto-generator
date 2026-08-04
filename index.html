@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-<link rel="stylesheet" href="css/style.css?v=6" />
+<link rel="stylesheet" href="css/style.css?v=7" />
 </head>
 <body>
 <div class="page">
@@ -404,7 +404,28 @@
         </button>
       </h2>
       <p class="card-desc-short">자릿수 합계가 어느 구간에 몰리는지 보여줍니다.</p>
+      <p class="highlight-stat" id="sum-stddev-stat"></p>
       <div class="sum-chart" id="sum-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>
+        🎯 소수·배수 자릿수 개수 분포
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">
+            당첨번호 6자리 중 소수(2, 3, 5, 7)가 몇 개 섞였는지, 3의 배수·5의 배수가
+            몇 개 섞였는지 보여줍니다.
+          </span>
+        </button>
+      </h2>
+      <p class="card-desc-short">소수·3의 배수·5의 배수가 몇 개씩 섞였는지 보여줍니다.</p>
+      <h3 class="stat-subheading">소수 자릿수 개수</h3>
+      <div id="prime-digit-chart"></div>
+      <h3 class="stat-subheading">3의 배수 자릿수 개수</h3>
+      <div id="multiple3-digit-chart"></div>
+      <h3 class="stat-subheading">5의 배수 자릿수 개수</h3>
+      <div id="multiple5-digit-chart"></div>
     </div>
 
     <div class="card">
@@ -435,6 +456,25 @@
       </h2>
       <p class="card-desc-short">한 회차 안에서 숫자가 몇 개 겹쳤는지 보여줍니다.</p>
       <div id="duplicate-digit-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>
+        🔗 자릿수 연속 패턴
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">
+            6자리 숫자를 왼쪽부터 순서대로 봤을 때, 오름차순으로 이어지는 구간(예: 1,2,3)과
+            같은 숫자가 그대로 반복되는 구간(예: 7,7)이 최대 몇 자리까지 이어졌는지 보여줍니다.
+          </span>
+        </button>
+      </h2>
+      <p class="card-desc-short">오름차순 연속과 동일 숫자 반복이 몇 자리까지 이어졌는지 보여줍니다.</p>
+      <p class="highlight-stat" id="exact-repeat-stat"></p>
+      <h3 class="stat-subheading">오름차순 연속 길이</h3>
+      <div id="ascend-streak-chart"></div>
+      <h3 class="stat-subheading">동일 숫자 연속 반복 길이</h3>
+      <div id="repeat-streak-chart"></div>
     </div>
 
     <div class="card">
@@ -487,6 +527,34 @@
         </div>
       </div>
     </div>
+
+    <div class="card">
+      <h2>
+        ⏳ 재출현 간격 분포
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">같은 자리에 같은 숫자가 한 번 나온 뒤 다시 나오기까지 보통 몇 회차가 걸리는지 보여줍니다.</span>
+        </button>
+      </h2>
+      <p class="card-desc-short">재출현까지 걸리는 회차 분포를 보여줍니다.</p>
+      <div class="sum-chart" id="reappear-chart"></div>
+    </div>
+
+    <div class="card">
+      <h2>
+        🌸 계절별 인기 조
+        <button type="button" class="info-btn" aria-label="자세히 보기">
+          <span aria-hidden="true">ⓘ</span>
+          <span class="info-tooltip">
+            추첨일 기준으로 봄(3~5월)·여름(6~8월)·가을(9~11월)·겨울(12~2월)로 나눠서,
+            계절별로 가장 자주 나온 조 순위를 보여줍니다. 연금복권은 완전 무작위 추첨이라
+            계절과 실제 상관관계는 없지만, 참고용으로 확인할 수 있습니다.
+          </span>
+        </button>
+      </h2>
+      <p class="card-desc-short">계절별로 가장 많이 나온 조를 보여줍니다.</p>
+      <div class="mini-lists" id="seasonal-group-lists"></div>
+    </div>
   </section>
 
   <footer>
@@ -498,8 +566,8 @@
 
 <script src="data/pension-data.js"></script>
 <script src="js/config.js"></script>
-<script src="js/stats.js"></script>
+<script src="js/stats.js?v=2"></script>
 <script src="js/generator.js"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
